@@ -1,0 +1,15 @@
+.DS_Store
+.dart_tool/
+
+.packages
+.pub/
+
+build/
+
+.flutter-plugins
+
+/.idea/
+/lib/utils/app_config.dart
+/.gradle/
+.pub-cache/
+*.log

@@ -1,0 +1,77 @@
+{
+    "identity": {
+        "secretKeyEncrypted": "07d99ca471a8812ea4449ce3f3413662c031f7bcf527e2e31e3b15971a4bae38a2dd9119e3534fba305c76897ed6cc3d88d106bc390867f410d0141550e3dc205970a6d63a75b5132cf6c122e0837f31",
+        "publicKey": "02eaa0f36e3e3c1aa293ae403660c298f9a56f670f35c02e3b3d3a9b078292be59",
+        "secretKey": "5cbdfeb21b0f736db98f182cb77b708037a3c6b744048dd3be9026542a10a7a3",
+        "passwordHashSaltHex": "d60e48f509276b506602a72c6e47a1ff",
+        "nonceHex": "170ea2ab67db7aa6b50e2520c74bc5003bb0337c6df18383",
+        "chatKeyPairSeed": "640b8a8763de814cf17ce70f87f515b832270428f0a738cc6762836c6fe2d13f",
+        "nickname": "bergstrom.van"
+    },
+    "assetProofs": {
+        "eth": [
+            {
+                "signaturePubKey": "02eaa0f36e3e3c1aa293ae403660c298f9a56f670f35c02e3b3d3a9b078292be59",
+                "signature": "1beda1bb779566383148485e6122874cec28cf31fc6f2ad60eee4256cdea97ef1f7245ba97a5301ca6738df6e9356f3d1ba6efff12e9730fb737b08c7a049e4308",
+                "payload": {
+                    "address": "0x012345679abcdef012345679abcdef012345679a",
+                    "msg": {
+                        "application": "wc",
+                        "version": "1",
+                        "pubKey": "02eaa0f36e3e3c1aa293ae403660c298f9a56f670f35c02e3b3d3a9b078292be59"
+                    },
+                    "sig": "b32b56b7a1431db76a4818f50c6d86145c471f0ee28468bef72706a003aab78c593f1a19aef437a72cdaa7e8d0f96fbbf9de9daf4f9e156fca2320e2899cbecd1b"
+                }
+            }
+        ],
+        "btc": [
+            {
+                "signaturePubKey": "02eaa0f36e3e3c1aa293ae403660c298f9a56f670f35c02e3b3d3a9b078292be59",
+                "signature": "1bae40ea336c465060103d1969d2f1ddc0a0755bdfa4f7690741b7c32006625f5639610f22b161af77d641898ea3ac2d5d091ec4475b196bf7b5cf9e3abc84ea3e",
+                "payload": {
+                    "address": "1M55555555555555555555555555555555",
+                    "msg": {
+                        "application": "wc",
+                        "version": "1",
+                        "pubKey": "02eaa0f36e3e3c1aa293ae403660c298f9a56f670f35c02e3b3d3a9b078292be59"
+                    },
+                    "sig": "H5EOEVNZjOjAFpwlVAzJ45qnWktvPcybklqXWjNxwujodMkv948PO2N2t0bkrFwanHXCqsn1M2lnJU/SVdbFZgU="
+                }
+            }
+        ]
+    },
+    "api.blockcypher.com": {
+        "btc": {
+            "1M55555555555555555555555555555555": {
+                "balance": {
+                    "address": "1M55555555555555555555555555555555",
+                    "total_received": 0,
+                    "total_sent": 0,
+                    "balance": 0,
+                    "unconfirmed_balance": 0,
+                    "final_balance": 0,
+                    "n_tx": 0,
+                    "unconfirmed_n_tx": 0,
+                    "final_n_tx": 0
+                }
+            }
+        },
+        "eth": {
+            "0x012345679abcdef012345679abcdef012345679a": {
+                "balance": {
+                    "address": "012345679abcdef012345679abcdef012345679a",
+                    "total_received": 0,
+                    "total_sent": 0,
+                    "balance": 0,
+                    "unconfirmed_balance": 0,
+                    "final_balance": 0,
+                    "n_tx": 0,
+                    "unconfirmed_n_tx": 0,
+                    "final_n_tx": 0,
+                    "nonce": 0,
+                    "pool_nonce": 0
+                }
+            }
+        }
+    }
+}

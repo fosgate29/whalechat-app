@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "481548067360",
+    "firebase_url": "https://whalechat-app.firebaseio.com",
+    "project_id": "whalechat-app",
+    "storage_bucket": "whalechat-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:481548067360:android:5e1ef7a7a920693b",
+        "android_client_info": {
+          "package_name": "club.whalechat.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "481548067360-1ddkjs7qdj1gs1710jf2ggknhqmj816r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2B9qCiaiRwaYuF4pwicrF3gTFEeIusxw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

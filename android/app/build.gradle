@@ -1,0 +1,94 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+  keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    compileSdkVersion 27
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        checkReleaseBuilds false
+    }
+
+    defaultConfig {
+        applicationId "club.whalechat.app"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk { abiFilters "armeabi-v7a" }
+    }
+
+    if (keystorePropertiesFile.exists()) {
+      signingConfigs {
+        release {
+          keyAlias keystoreProperties['keyAlias']
+          keyPassword keystoreProperties['keyPassword']
+          storeFile file(keystoreProperties['storeFile'])
+          storePassword keystoreProperties['storePassword']
+        }
+      }
+    }
+
+    buildTypes {
+        release {
+          if (keystorePropertiesFile.exists()) {
+            signingConfig signingConfigs.release
+          } else {
+            signingConfig signingConfigs.debug
+          }
+        }
+    }
+
+    packagingOptions {
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+        exclude 'lib/x86_64/freebsd/libscrypt.so'
+        exclude 'lib/x86_64/linux/libscrypt.so'
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'com.android.support.test:runner:1.+'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.+'
+    implementation 'org.bitcoinj:bitcoinj-core:0.14.+'
+    implementation 'org.web3j:core:3.3.1-android'
+    implementation 'com.android.support:multidex:1.0.+'
+    implementation 'com.google.firebase:firebase-core:16.0.+'
+    implementation 'com.android.support:support-core-ui:27.1.+'
+    implementation 'com.android.support:support-core-utils:27.1.+'
+    implementation 'com.android.support:support-fragment:27.1.+'
+    implementation 'com.android.support:support-compat:27.1.+'
+}
+
+apply plugin: 'com.google.gms.google-services'
