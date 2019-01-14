@@ -62,7 +62,28 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     _startSubscription();
+    _subscribeToFcmTopic();
+
     sharePublicKeyWithRoom();
+
+    AppState.instance.currentChatTopic = room.topic;
+  }
+
+  Future<void> _subscribeToFcmTopic() async {
+    if (!AppState.instance.storage.fcmSubscribedTopics.contains(room.topic)) {
+      final actuallySubscribe = (
+        !room.isDirectMessage &&
+          AppState.instance.allNotificationsEnabled &&
+          AppState.instance.chatroomMessagesNotificationsEnabled
+      ) || (
+        room.isDirectMessage &&
+          AppState.instance.allNotificationsEnabled &&
+          AppState.instance.privateMessagesNotificationsEnabled
+      );
+
+      AppState.instance.fcmSubscribeToTopic(
+        room.topic, actuallySubscribe: actuallySubscribe);
+    }
   }
 
   Future<void> _refreshRoom() async => room =
@@ -135,6 +156,7 @@ class _ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
     for (final sub in _subscriptions)
       sub.cancel();
     AppState.instance.whisperService.unsubscribeFromRoom("0x" + room.topic);
+    AppState.instance.currentChatTopic = null;
   }
 
   @override

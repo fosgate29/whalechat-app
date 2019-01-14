@@ -5,6 +5,7 @@ import 'package:crypto/crypto.dart';
 import 'package:faker/faker.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_sodium/flutter_sodium.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
@@ -12,6 +13,7 @@ import 'package:whalechat_app/screens/chat_screen.dart';
 import 'package:whalechat_app/services/whisper_service.dart';
 import 'package:whalechat_app/utils/app_state_storage.dart';
 import 'package:whalechat_app/utils/crypto_utils.dart';
+import 'package:whalechat_app/utils/utils.dart';
 import 'package:quiver/iterables.dart';
 import 'package:whalechat_app/models/identity.dart';
 import 'package:whalechat_app/services/api_service.dart';
@@ -61,18 +63,31 @@ class AppState {
   var chatroomMentionsNotificationsEnabled = true;
   var privateMessagesNotificationsEnabled = true;
 
+  // HACK: used to decide whether to pop up push notification or not
+  String currentChatTopic;
+
   var wcCryptoAddresses = {}; // addresses derived from `publicKey` inside the app
 
   AppState._();
 
   Future<void> configureFcm(BuildContext context) async {
     _logger.fine("Got FCM token: ${await fcm.getToken()}");
+
+    final notifications = FlutterLocalNotificationsPlugin();
+
     fcm.configure(
       onMessage: (args) {
         _logger.fine("FCM::onMessage: $args");
         // If the current screen is already there, do nothing
         // Otherwise, show local notification and when clicked, go to that ChatScreen
+        if (AppState.instance.currentChatTopic != args["data"]["topic"]) {
+          notifications.show(0, "New Message", "", NotificationDetails(
+            AndroidNotificationDetails(args["data"]["topic"], "Chat", "Chat"),
+            IOSNotificationDetails(),
+          ));
+        }
       },
+
       onResume: (args) async {
         _logger.fine("FCM::onResume: $args");
 
@@ -87,6 +102,18 @@ class AppState {
 
         final lobby = await apiService.getLobby();
         final room = lobby.rooms.firstWhere((r) => r.topic == args['topic']);
+
+        Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(room: room)));
+      }
+    );
+
+    notifications.initialize(
+      InitializationSettings(
+        AndroidInitializationSettings('ic_launcher'),
+        IOSInitializationSettings()
+      ), onSelectNotification: (String topic) async {
+        final lobby = await apiService.getLobby();
+        final room = lobby.rooms.firstWhere((r) => r.topic == topic);
 
         Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(room: room)));
       }
