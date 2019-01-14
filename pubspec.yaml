@@ -1,5 +1,6 @@
 name: whalechat_app
 description: A new Flutter application.
+version: 0.0.2+2
 
 dependencies:
   flutter:
