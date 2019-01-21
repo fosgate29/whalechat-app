@@ -75,16 +75,34 @@ class AppState {
 
     final notifications = FlutterLocalNotificationsPlugin();
 
+    notifications.initialize(
+      InitializationSettings(
+        AndroidInitializationSettings('launch_background'),
+        IOSInitializationSettings()
+      ),
+      onSelectNotification: (String topic) async {
+        final lobby = await apiService.getLobby();
+        final room = lobby.rooms.firstWhere((r) => r.topic == topic);
+
+        Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(room: room)));
+      }
+    );
+
     fcm.configure(
-      onMessage: (args) {
+      onMessage: (args) async {
         _logger.fine("FCM::onMessage: $args");
         // If the current screen is already there, do nothing
         // Otherwise, show local notification and when clicked, go to that ChatScreen
+
         if (AppState.instance.currentChatTopic != args["data"]["topic"]) {
-          notifications.show(0, "New Message", "", NotificationDetails(
-            AndroidNotificationDetails(args["data"]["topic"], "Chat", "Chat"),
+          final topic = args["data"]["topic"];
+          final lobby = await apiService.getLobby();
+          final room = lobby.rooms.firstWhere((r) => r.topic == topic);
+
+          notifications.show(0, "New Message", room.title, NotificationDetails(
+            AndroidNotificationDetails(topic, room.title, room.title),
             IOSNotificationDetails(),
-          ));
+          ),payload: topic);
         }
       },
 
@@ -102,18 +120,6 @@ class AppState {
 
         final lobby = await apiService.getLobby();
         final room = lobby.rooms.firstWhere((r) => r.topic == args['topic']);
-
-        Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(room: room)));
-      }
-    );
-
-    notifications.initialize(
-      InitializationSettings(
-        AndroidInitializationSettings('ic_launcher'),
-        IOSInitializationSettings()
-      ), onSelectNotification: (String topic) async {
-        final lobby = await apiService.getLobby();
-        final room = lobby.rooms.firstWhere((r) => r.topic == topic);
 
         Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(room: room)));
       }
