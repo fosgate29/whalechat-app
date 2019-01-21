@@ -6,7 +6,7 @@ import 'package:whalechat_app/utils/app_state.dart';
 import 'package:whalechat_app/widgets/yes_no_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-const GITHUB_LATEST_RELEASE_API_URL = 'https://api.github.com/repos/whalechat/whalechat-mobile/releases/latest';
+const GITHUB_LATEST_RELEASE_API_URL = 'https://api.github.com/repos/whalechat/whalechat-app/releases/latest';
 
 Future<void> launchBrowser(String url) async {
   if (await canLaunch(url)) {

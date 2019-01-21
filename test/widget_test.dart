@@ -29,7 +29,7 @@ void main() {
     AppState.instance.httpClient = MockClient((req) async {
       if (req.url.toString() == BIP39_ENGLISH_WORDLIST_URL) {
         return http.Response(await fixture('bip39_wordlist.txt').readAsString(), 200);
-      } else if (req.url.toString() == 'https://api.github.com/repos/whalechat/whalechat-mobile/releases/latest') {
+      } else if (req.url.toString() == 'https://api.github.com/repos/whalechat/whalechat-app/releases/latest') {
         return http.Response(await fixture('github_latest_release.json').readAsString(), 200);
       } else if (req.url.toString().contains('api.blockcypher.com')) {
         final words = req.url.toString().split('/');
