@@ -1,5 +1,6 @@
 import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:whalechat_app/screens/advanced_settings_screen.dart';
 import 'package:whalechat_app/screens/edit_profile_screen.dart';
 import 'package:whalechat_app/screens/notifications_settings_screen.dart';
@@ -12,6 +13,22 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  var _currentVersion;
+
+  Future _load() async {
+    _currentVersion = (await PackageInfo.fromPlatform()).version;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    this._load().then((_) {
+      setState(() {
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final identityPubKey = AppState.instance.publicKey.substring(0, 10) + '...';
@@ -83,6 +100,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 AppState.instance.storage.telemetryEnabled = x;
               });
             }
+          ),
+
+          ListTile(
+            title: Text("Version"),
+            subtitle: Text(_currentVersion),
           ),
         ],))
       ],)
