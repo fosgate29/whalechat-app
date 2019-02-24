@@ -1,6 +1,6 @@
 name: whalechat_app
-description: A new Flutter application.
-version: 0.1.0+3
+description: A decentralized communication platform for crypto-whales
+version: 0.2.1
 
 dependencies:
   flutter:
