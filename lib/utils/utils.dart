@@ -28,7 +28,7 @@ Future<void> checkUpdate(BuildContext context) async {
   final resp = await AppState.instance.httpClient.get(GITHUB_LATEST_RELEASE_API_URL);
   final j = json.decode(resp.body);
 
-  final latestVersion = j['tag_name'];
+  final latestVersion = j['tag_name'].substring(1); // trim first character 'v' out
   final currentVersion = (await PackageInfo.fromPlatform()).version;
 
   AppState.instance.triedCheckUpdate = true;
