@@ -9,7 +9,6 @@ build/
 .flutter-plugins
 
 /.idea/
-/lib/utils/app_config.dart
 /.gradle/
 .pub-cache/
 *.log

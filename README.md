@@ -50,11 +50,16 @@ d. Copy and save the signature.
 
 4. Paste the signature in the app. Note that the you need to follow the standard format.
 
+For Bitcoin:
+
 ![alt text](img/add_proof_screen_2.png)
 
-5. Tap on **Verify & Add**. If the signature is valid, the app will show a confirmation message and the new proof will be added in the list of proofs.
+For Ethereum:
 
-![alt text](img/asset_proofs_screen_filled.png)
+![alt text](img/add_proof_screen_2.png)
+
+
+5. Tap on **Verify & Add**. If the signature is valid, the app will show a confirmation message and the new proof will be added in the list of proofs.
 
 ## To contact whales
 
@@ -72,7 +77,30 @@ https://tools.bitcoin.com/verify-message/
 
 For Ethereum, [MyEtherWallet Sign Message website](https://www.myetherwallet.com/signmsg.html) can be used.
 
-## Roadmap
+
+# Build instructions
+
+```
+flutter packages get
+flutter packages pub run build_runner build --delete-conflicting-outputs
+flutter pub pub run flutter_launcher_icons:main
+flutter build apk
+```
+
+# Run on emulator
+
+1. Start emulator device
+
+2. Run the following commands:
+
+```
+sed -i'' -e "s_ndk { abiFilters \"armeabi-v7a\" }.*_ndk { abiFilters \"x86\"}_" android/app/build.gradle
+flutter packages get
+flutter packages pub run build_runner build --delete-conflicting-outputs
+flutter run
+```
+
+# Roadmap
 
 This is a high-level overview of our development plan. More details will be added soon.
 
