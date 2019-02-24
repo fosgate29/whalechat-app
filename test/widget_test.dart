@@ -15,6 +15,7 @@ import 'package:whalechat_app/models/cryptoAccount.dart';
 import 'package:whalechat_app/models/identity.dart';
 import 'package:whalechat_app/protocol/transport.dart';
 import 'package:whalechat_app/screens/new_address_proof_screen.dart';
+import 'package:whalechat_app/screens/new_address_proof_screen_2.dart';
 import 'package:whalechat_app/screens/whale_chat_app.dart';
 import 'package:whalechat_app/utils/app_state.dart';
 import 'package:whalechat_app/utils/crypto_utils.dart';
