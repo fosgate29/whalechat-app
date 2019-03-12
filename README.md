@@ -77,6 +77,9 @@ https://tools.bitcoin.com/verify-message/
 
 For Ethereum, [MyEtherWallet Sign Message website](https://www.myetherwallet.com/signmsg.html) can be used.
 
+## Referral Program
+
+Earn `WHALE` tokens by referring crypto whales or proving your own crypto wealth! See [Referral.md](Referral.md) for more details.
 
 # Build instructions
 
