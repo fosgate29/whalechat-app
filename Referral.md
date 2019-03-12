@@ -30,7 +30,7 @@ The `WHALE` that you obtain from an asset proof is basically calculated by:
 Currently Referral Programs are open for the following currencies with the following rates:
 
 |Currency|Target|Full Reward Rate|
-|-|-|
+|-|-|-|
 |BTC|3500 BTC|1 BTC = 350 WHALE|
 |ETH|42500 ETH|1 ETH = 15 WHALE|
 |BCH|8000 BCH|1 BCH = 15 WHALE|
