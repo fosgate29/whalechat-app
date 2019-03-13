@@ -6,6 +6,7 @@ import 'package:whalechat_app/screens/edit_profile_screen.dart';
 import 'package:whalechat_app/screens/notifications_settings_screen.dart';
 import 'package:whalechat_app/utils/app_state.dart';
 import 'package:whalechat_app/widgets/identicon.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -98,6 +99,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onChanged: (x) {
               setState(() {
                 AppState.instance.storage.telemetryEnabled = x;
+                AppState.instance.storage.save();
+              });
+            }
+          ),
+
+          SwitchListTile(
+            title: Text("Sandbox environment"),
+            subtitle: Text("Run the app in showcase mode."),
+            value: AppState.instance.storage.sandboxEnvironmentEnabled ?? false,
+            onChanged: (x) {
+              setState(() {
+                AppState.instance.storage.sandboxEnvironmentEnabled = x;
+                AppState.instance.storage.save();
+                showToastRestartApp();
               });
             }
           ),
@@ -108,6 +123,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ],))
       ],)
+    );
+  }
+
+  void showToastRestartApp() {
+    Fluttertoast.showToast(
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      gravity: ToastGravity.TOP,
+      msg: "You need to restart the app to reflect the changes"
     );
   }
 

@@ -21,6 +21,7 @@ class AppStateStorage {
 
   // Config
   bool telemetryEnabled;
+  bool sandboxEnvironmentEnabled;
 
   // Rooms & contacts
   Set<String> fcmSubscribedTopics = Set();
@@ -46,6 +47,7 @@ class AppStateStorage {
     prefs.setString('nonceHex', nonceHex);
     prefs.setString('nickname', nickname);
     prefs.setBool('telemetryEnabled', telemetryEnabled);
+    prefs.setBool('sandboxEnvironmentEnabled', sandboxEnvironmentEnabled);
     prefs.setStringList('cryptoAccounts', cryptoAccounts.map((c) => json.encode(c.toJson())).toList());
     prefs.setStringList("fcmSubscribedTopics", fcmSubscribedTopics.toList());
   }
@@ -57,6 +59,7 @@ class AppStateStorage {
     nonceHex = prefs.getString('nonceHex');
     nickname = prefs.getString('nickname');
     telemetryEnabled = prefs.getBool('telemetryEnabled');
+    sandboxEnvironmentEnabled = prefs.getBool('sandboxEnvironmentEnabled');
     chatKeyPairSeedEncryptedHex = prefs.getString('chatKeyPairSeedEncryptedHex');
     cryptoAccounts = (prefs.getStringList('cryptoAccounts') ?? []).map<CryptoAccount>((v) => CryptoAccount.fromJson(json.decode(v))).toList();
   }
@@ -67,6 +70,7 @@ class AppStateStorage {
     nonceHex = null;
     nickname = null;
     telemetryEnabled = null;
+    sandboxEnvironmentEnabled = null;
     fcmSubscribedTopics = Set();
   }
 

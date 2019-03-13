@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:convert/convert.dart';
 import 'package:flutter/material.dart';
 import 'package:whalechat_app/widgets/app_drawer.dart';
 import 'package:whalechat_app/widgets/identicon.dart';
@@ -45,11 +46,20 @@ class _ChatListScreenState extends State<ChatListScreen> with TickerProviderStat
     });
   }
 
+  Future<void> registerIfNotYet() {
+    return AppState.instance.apiService.register(
+      AppState.instance.storage.nickname,
+      AppState.instance.publicKey,
+      hex.encode(AppState.instance.chatKeyPair.publicKey),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     refreshLobby();
-
+    if (AppState.instance.storage.sandboxEnvironmentEnabled == true)
+      registerIfNotYet();
     checkUpdate(context);
     AppState.instance.configureFcm(context);
   }

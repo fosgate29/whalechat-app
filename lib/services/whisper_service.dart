@@ -34,7 +34,9 @@ class WhisperService {
 
   json_rpc.Client get _client {
     if (__client == null || __client.isClosed) {
-      _socket = IOWebSocketChannel.connect(shhRpcServerUrl);
+      _socket = IOWebSocketChannel.connect(
+        (AppState.instance.storage.sandboxEnvironmentEnabled == true) ? sandbox_shhRpcServerUrl: shhRpcServerUrl
+      );
 
       // Dupe the stream so that we can use it for JSON-RPC like calls and also pick up `shh_subscription`s
       final stream = _socket.stream.asBroadcastStream();

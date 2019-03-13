@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:whalechat_app/screens/address_proof_list_screen.dart';
+import 'package:whalechat_app/screens/referral_codes_screen.dart';
 import 'package:whalechat_app/screens/chat_list_screen.dart';
 import 'package:whalechat_app/screens/login_screen.dart';
 import 'package:whalechat_app/screens/settings_screen.dart';
@@ -19,11 +20,20 @@ class AppDrawer {
         ),
 
         ListTile(
-          title: Text("Address Proofs"),
+          title: Text("Asset Proofs"),
           onTap: () {
             Navigator.of(context).pop();
             Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => AddressProofListScreen()));
+          }
+        ),
+
+        ListTile(
+          title: Text("Referral Program"),
+          onTap: () {
+            Navigator.of(context).pop();
+            Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => ReferralCodesScreen()));
           }
         ),
 

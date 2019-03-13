@@ -168,7 +168,8 @@ Future parseAssetProofSignature(currency, signatureContents) async {
           msg = lines.sublist(1, lines.length - 5 + 1).join("\n");
           address = lines[lines.length - 3];
           sig = lines[lines.length - 2];
-          await AppState.instance.cryptoUtilsChannel.verifyBtc(sig, msg, address);
+          if (AppState.instance.storage.sandboxEnvironmentEnabled != true)
+            await AppState.instance.cryptoUtilsChannel.verifyBtc(sig, msg, address);
         } else
           throw ('Wrong signature format');
       } else if (currency.contains('ETH')) {
@@ -185,7 +186,8 @@ Future parseAssetProofSignature(currency, signatureContents) async {
         } catch (_) {
           throw ('Wrong signature format');
         }
-        await AppState.instance.cryptoUtilsChannel.verifyEth(sig, msg, address);
+        if (AppState.instance.storage.sandboxEnvironmentEnabled != true)
+          await AppState.instance.cryptoUtilsChannel.verifyEth(sig, msg, address);
       }
 
       if (AppState.instance.storage.cryptoAccounts.where((cryptoAccount) => cryptoAccount.address == address).isNotEmpty) {

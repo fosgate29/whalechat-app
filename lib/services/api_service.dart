@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import "package:hex/hex.dart";
 
 import 'package:json_rpc_2/json_rpc_2.dart' as json_rpc;
 import 'package:logging/logging.dart';
@@ -27,7 +29,9 @@ class ApiService {
 
   json_rpc.Client get _client {
     if (__client == null || __client.isClosed) {
-      __client = json_rpc.Client(IOWebSocketChannel.connect(appServerUrl).cast<String>());
+      __client = json_rpc.Client(IOWebSocketChannel.connect(
+        (AppState.instance.storage.sandboxEnvironmentEnabled == true) ? sandbox_appServerUrl: appServerUrl
+      ).cast<String>());
       __client.listen();
     }
     return __client;
@@ -111,6 +115,60 @@ class ApiService {
 
     AppState.instance.fcmSubscribeToTopic(
       room.topic, actuallySubscribe: actuallySubscribe);
+  }
+
+  Future<void> associateReferralCode(String code) async {
+    final data = "{\"code\":\"$code\"}";
+
+    final sig = await AppState.instance.cryptoUtilsChannel.ecSign(
+      AsciiEncoder().fuse(HexEncoder()).convert(data), AppState.instance.secretKey);
+
+    final payload = "{" +
+        "\"data\": $data,"
+        "\"publicKey\": \"${AppState.instance.publicKey}\"," +
+        "\"time\": ${DateTime.now().millisecondsSinceEpoch}," +
+        "\"sig\": \"${sig.signature}\"" +
+      "}";
+
+    final rv = await _client.sendRequest("v1/associate_referral_code", [payload]);
+
+    if (rv != 'ok')
+      throw("Error: $rv");
+  }
+
+  Future<dynamic> getReferralCodes() async {
+    final data = "{}";
+
+    final sig = await AppState.instance.cryptoUtilsChannel.ecSign(
+      AsciiEncoder().fuse(HexEncoder()).convert(data), AppState.instance.secretKey);
+
+    final payload = "{" +
+      "\"data\": $data,"
+        "\"publicKey\": \"${AppState.instance.publicKey}\"," +
+      "\"time\": ${DateTime.now().millisecondsSinceEpoch}," +
+      "\"sig\": \"${sig.signature}\"" +
+      "}";
+
+    return await _client.sendRequest("v1/get_referral_codes", [payload]);
+  }
+
+  Future<void> createReferralCodes() async {
+    final data = "{}";
+
+    final sig = await AppState.instance.cryptoUtilsChannel.ecSign(
+      AsciiEncoder().fuse(HexEncoder()).convert(data), AppState.instance.secretKey);
+
+    final payload = "{" +
+      "\"data\": $data,"
+        "\"publicKey\": \"${AppState.instance.publicKey}\"," +
+      "\"time\": ${DateTime.now().millisecondsSinceEpoch}," +
+      "\"sig\": \"${sig.signature}\"" +
+      "}";
+
+    final rv = await _client.sendRequest("v1/create_referral_codes", [payload]);
+
+    if (rv != 'ok')
+      throw("Error: $rv");
   }
 
   Future<void> leaveRoom(Room room) async {
