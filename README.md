@@ -107,6 +107,8 @@ flutter run
 
 This is a high-level overview of our development plan. More details will be added soon.
 
+- Referral program.
+- Full audit and deployment of smart contracts.
 - Auction-based ticket issuance.
 - Support for asset proof of more cryptocurrencies and ERC20 /ERC721 tokens.
 - UX for `WHALE` token and DAO management.
