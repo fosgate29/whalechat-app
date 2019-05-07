@@ -26,7 +26,7 @@ The following links contain more information on the app [technical details](./Do
 
 For Bitcoin, you can use Electrum as follows:
 
-a. Right-clik on your wallet addresses among your list of addresses.
+a. Right-click on your wallet addresses among your list of addresses.
 
 b. Click on **Sign/Verify message**.
 
@@ -115,7 +115,7 @@ This is a high-level overview of our development plan. More details will be adde
 - Desktop client
 
 In the long-term, we aim to further decentralize the platform implementing:
-- Whisper protocol nodes incentivation scheme.
+- Whisper protocol nodes incentivisation scheme.
 - Support for GPG signatures.
 
 # Contact
